@@ -25,15 +25,6 @@ SECRET_KEY = 'hmludgw!ju+2w=qh1=1j^lur%a_8dqu&@+do$+$ekn*(+tb_=y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
-
-if not DEBUG:
-    import django_heroku
-    django_heroku.settings(locals())
-
 ALLOWED_HOSTS = []
 
 
@@ -51,6 +42,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -109,6 +101,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+
+if not DEBUG:
+    import django_heroku
+    django_heroku.settings(locals())
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
