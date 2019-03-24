@@ -33,12 +33,8 @@ except ImportError:
 if not DEBUG:
     import django_heroku
     django_heroku.settings(locals())
-    
-ALLOWED_HOSTS = []
 
-MIDDLEWARE_CLASSES = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',#追加
-]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -129,18 +125,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-#heroku deploy
-'''
-try:
-    from .local_settings import *
-except ImportError:
-    pass
-
-if not DEBUG:
-    import django_heroku
-    django_heroku.settings(locals())
-'''
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
