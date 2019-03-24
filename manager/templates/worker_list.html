@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>{{title}}</title>
+</head>
+<body>
+  <form action = "{% url 'worker_list'%}" method="post">
+    {% csrf_token %}
+    <input name="term" placeholder="term">
+    <input name="location" placeholder="location">
+    <input type="submit" value="search">
+  </form>
+  <h1>{{title}}</h1>
+  <p>{{term}}</p>
+  <p>{{location}}</p>
+  <p>{{restaurant.businesses.alias}}</p>
+  ビジネス
+    <p>{{restaurant.businesses}}</p>
+  <p>全情報</p>
+  <p>{{restaurant.alias}}</p>
+  <p>{{restaurant}}</p>
+</body>
+</html>
