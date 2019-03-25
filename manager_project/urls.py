@@ -15,17 +15,20 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from django.urls import include, path
+# from django.urls import include, path
 
 import manager.views as manager_view
+import manager.homeView as manager_homeView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^worker_list/', manager_view.WorkerListView.as_view(),name = 'worker_list')
+    # url(r'', 'django.views.generic.simple.redirect_to', {'url': '/home/'}),
+    url(r'home/', manager_homeView.Home.as_view(), name='home'),
+    url(r'^searchResult/', manager_view.SearchYelpRestaurant.as_view(), name='searchResult')
 ]
 '''
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('worker_list/', manager_view.WorkerListView, name = 'worker_list')
+    path('searchResult/', manager_view.SearchYelpRestaurant, name = 'searchResult')
 ]
 '''

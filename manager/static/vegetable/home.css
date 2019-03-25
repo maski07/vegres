@@ -1,0 +1,19 @@
+div#header{
+  height:77px;	/*背景画像のサイズに合わせてボックスの高さを指定*/
+  background-repeat:no-repeat;		/*背景画像を繰り返さない*/
+  background-color:#84AD52;		/*ヘッダ部分の背景色*/
+  font-weight: bold;
+  color:white;
+  text-align: center;
+}
+
+div#back{
+  background-image:url("../img/vegetalianFood.jpg");	/*ヘッダ部分の背景画像*/
+  max-width: 900px;
+  height: 900px;
+   margin: 5px;
+   background-size: contain;
+}
+div#home{
+  color:red;
+}

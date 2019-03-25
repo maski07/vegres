@@ -5,7 +5,7 @@
   <title>{{title}}</title>
 </head>
 <body>
-  <form action = "{% url 'worker_list'%}" method="post">
+  <form action = "{% url 'searchResult'%}" method="post">
     {% csrf_token %}
     <input name="term" placeholder="term">
     <input name="location" placeholder="location">
