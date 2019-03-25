@@ -37,7 +37,7 @@ SEARCH_PATH = '/v3/businesses/search'
 BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
 
 # Defaults for our simple example.
-DEFAULT_TERM = 'dinner'
+DEFAULT_TERM = 'vegetable'
 DEFAULT_LOCATION = 'TOKYO'
 SEARCH_LIMIT = 3
 
@@ -54,18 +54,15 @@ class SearchYelpRestaurant(TemplateView):
 
     def post(self, request, *args, **kwargs):
         context = super(SearchYelpRestaurant, self).get_context_data(**kwargs)
-        response = self.searchRestaurant(request)  # yelp-API呼び出し
-        context['restaurant'] = response  # 入れ物に入れる
-        params = {
-            'title':'Vegetable',
-            'term':'dinner',
-            'location':'Tokyo',
-            'restaurant':response
-        }
+        # yelp-API呼び出し
+        response = self.searchRestaurant(request)
+        # 入れ物に入れる
+        context['restaurant'] = response
         return render(self.request, self.template_name, context)
 
     def searchRestaurant(self, request):
-        parser = argparse.ArgumentParser()
+        # parser 使い方不明
+        # parser = argparse.ArgumentParser()
         '''parser.add_argument('-q', '--term', dest='term', default=DEFAULT_TERM,
                             type=str, help='Search term (default: %(default)s)')
         parser.add_argument('-l', '--location', dest='location',
@@ -75,7 +72,7 @@ class SearchYelpRestaurant(TemplateView):
         input_values = parser.parse_args() #requestを受け取ってる？<-たぶん
         '''
         if(request.method == 'POST'):
-            term = request.POST['term']
+            term = DEFAULT_TERM
             location = request.POST['location']
         try:
             response = self.query_api(term, location)

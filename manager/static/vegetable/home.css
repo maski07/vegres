@@ -9,10 +9,11 @@ div#header{
 
 div#back{
   background-image:url("../img/vegetalianFood.jpg");	/*ヘッダ部分の背景画像*/
-  max-width: 900px;
+  max-width: 960px;
   height: 900px;
-   margin: 5px;
-   background-size: contain;
+  margin:5px 20px;
+  text-align: center;
+  background-size: contain;
 }
 div#home{
   color:red;

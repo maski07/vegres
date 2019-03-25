@@ -7,7 +7,6 @@
 <body>
   <form action = "{% url 'searchResult'%}" method="post">
     {% csrf_token %}
-    <input name="term" placeholder="term">
     <input name="location" placeholder="location">
     <input type="submit" value="search">
   </form>
