@@ -3,6 +3,8 @@ from django.views.generic import TemplateView
 
 
 class Home(TemplateView):
+    # views.pyに統合したい
+
     HOME = "home.html"
     def get(self, request, *args, **kwargs):
 

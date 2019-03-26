@@ -13,8 +13,8 @@ import argparse
 import pprint
 import requests
 import sys
+import json
 # import urllib
-
 
 # This client code can run on Python 2.x or 3.x.  Your imports can be
 # simpler if you only need one of those.
@@ -29,22 +29,25 @@ except ImportError:
     from urllib import quote
     # from urllib import urlencode
 
-API_KEY='Mee1peM6diEGMyIEwt2RXeISI0kfPKT6sDxZeQJeNouXBmYfuMecxZOcANntEsvQa203NTcHuHYdB20vf6sTglGYjjQAsJCloWVoHEsWkL1C5-ERIHycaOf_5B5yXHYx'
 
 # API constants, you shouldn't have to change these.
+API_KEY='Mee1peM6diEGMyIEwt2RXeISI0kfPKT6sDxZeQJeNouXBmYfuMecxZOcANntEsvQa203NTcHuHYdB20vf6sTglGYjjQAsJCloWVoHEsWkL1C5-ERIHycaOf_5B5yXHYx'
 API_HOST = 'https://api.yelp.com'
 SEARCH_PATH = '/v3/businesses/search'
 BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
 
 # Defaults for our simple example.
-DEFAULT_TERM = 'vegetable'
+DEFAULT_TERM = 'vegan'
 DEFAULT_LOCATION = 'TOKYO'
 SEARCH_LIMIT = 3
 
-# import pdb; pdb.set_trace()# デバッグ
+# デバッグ用コード
+# import pdb; pdb.set_trace()
 
 
 class SearchYelpRestaurant(TemplateView):
+    # TODO:検索機能はオブジェクト化したい
+
     template_name = "searchResult.html"
 
     def get(self, request, *args, **kwargs):
@@ -58,12 +61,30 @@ class SearchYelpRestaurant(TemplateView):
         response = self.searchRestaurant(request)
         # 入れ物に入れる
         context['restaurant'] = response
-        return render(self.request, self.template_name, context)
+
+        # html表示用にparamsを作成
+        params = self.makeParams(response)
+
+        return render(self.request, self.template_name, params)
+
+    def makeParams(self, response):
+        if response is not None:
+            businesses = response["businesses"]
+            params = {
+                'restaurant': response,
+                'title': 'Vegetable',
+                'alias': businesses[0]["alias"],  # 店舗名
+                'address': businesses[0]["location"]["display_address"],
+                'phone': businesses[0]["phone"],
+                'url': businesses[0]["url"],
+            }
+            return params
+        return response
 
     def searchRestaurant(self, request):
-        # parser 使い方不明
-        # parser = argparse.ArgumentParser()
-        '''parser.add_argument('-q', '--term', dest='term', default=DEFAULT_TERM,
+        # 使い方不明のため一旦コメントアウト
+        ''' parser = argparse.ArgumentParser()
+        parser.add_argument('-q', '--term', dest='term', default=DEFAULT_TERM,
                             type=str, help='Search term (default: %(default)s)')
         parser.add_argument('-l', '--location', dest='location',
                             default=DEFAULT_LOCATION, type=str,
@@ -108,13 +129,14 @@ class SearchYelpRestaurant(TemplateView):
         print(u'{0} businesses found, querying business info ' \
             'for the top result "{1}" ...'.format(
                 len(businesses), business_id))
-        # 一旦コメントアウト（ここでエラー出る）
-        # response = get_business(API_KEY, business_id)
+        # どのように使うのかわからないのでコメントアウト
+        # response = self.get_business(API_KEY, business_id)
 
         print(u'Result for business "{0}" found:'.format(business_id))
         pprint.pprint(response, indent=2)
         return response
 
+        # どうやって使うのかわからないメソッド
     def get_business(self, api_key, business_id):
         """Query the Business API by a business ID.
 
@@ -122,11 +144,11 @@ class SearchYelpRestaurant(TemplateView):
             business_id (str): The ID of the business to query.
 
         Returns:
-            dict: The JSON response from the request.
-        """
-        business_path = BUSINESS_PATH + business_id
+            dict: The JSON response from the request."""
 
-        return request(API_HOST, business_path, api_key)
+    #    business_path = BUSINESS_PATH + business_id
+
+    #    return request(API_HOST, business_path, api_key)
 
     def search(self, api_key, term, location):
         """Query the Search API by a search term and location.
