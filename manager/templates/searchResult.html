@@ -5,11 +5,17 @@
   <title>{{title}}</title>
 </head>
 <body>
+  <div id="header">
+    <h1>
+      <a>Vegan Restaurant</a>
+    </h1>
+  </div>
   <form action = "{% url 'searchResult'%}" method="post">
     {% csrf_token %}
     <input name="location" placeholder="location">
     <input type="submit" value="search">
   </form>
+    <img src = "{{image_url}}"></img>
     <p>{{alias}}</p>
     <p>{{address}}</p>
     <p>{{phone}}</p>

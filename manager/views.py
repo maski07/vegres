@@ -77,6 +77,7 @@ class SearchYelpRestaurant(TemplateView):
                 'address': businesses[0]["location"]["display_address"],
                 'phone': businesses[0]["phone"],
                 'url': businesses[0]["url"],
+                'image_url': businesses[0]["image_url"]
             }
             return params
         return response
