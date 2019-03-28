@@ -2,7 +2,6 @@ from __future__ import print_function
 # Create your views here.
 from django.shortcuts import render  # , redirect, get_object_or_404
 from django.views.generic import TemplateView
-
 # from manager.models import *
 
 # from .SearchYelpResForm import SearchYelpResForm
@@ -14,6 +13,8 @@ import pprint
 import requests
 import sys
 import json
+# あとでRefactaringのために使う
+# from yelpapi import YelpAPI
 # import urllib
 
 # This client code can run on Python 2.x or 3.x.  Your imports can be
@@ -37,9 +38,9 @@ SEARCH_PATH = '/v3/businesses/search'
 BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
 
 # Defaults for our simple example.
-DEFAULT_TERM = 'vegan'
+DEFAULT_TERM = 'Vegetarian Food'
 DEFAULT_LOCATION = 'TOKYO'
-SEARCH_LIMIT = 3
+SEARCH_LIMIT = 5
 
 # デバッグ用コード
 # import pdb; pdb.set_trace()
@@ -47,6 +48,7 @@ SEARCH_LIMIT = 3
 
 class SearchYelpRestaurant(TemplateView):
     # TODO:検索機能はオブジェクト化したい
+    # TODO:YELPAPIを用いてRefactaringしたい
 
     template_name = "searchResult.html"
 
@@ -59,28 +61,35 @@ class SearchYelpRestaurant(TemplateView):
         context = super(SearchYelpRestaurant, self).get_context_data(**kwargs)
         # yelp-API呼び出し
         response = self.searchRestaurant(request)
-        # 入れ物に入れる
+        # 入れ物に入れる。いらない処理。あとで使えそうだから残してる
         context['restaurant'] = response
-
-        # html表示用にparamsを作成
-        params = self.makeParams(response)
-
-        return render(self.request, self.template_name, params)
-
-    def makeParams(self, response):
+        # yelp-APIでRefactaring
+        '''yelp_api = YelpAPI(API_KEY)  # yelp_API実装中
+        search_results = yelp_api.search_query(request.POST.get['location'])'''
+        # 取得した店舗情報を1店舗ずつ変数に格納する。responseを空で渡したらエラーになる。
         if response is not None:
-            businesses = response["businesses"]
+            businessList = self.divideBussiness(response)
+
+        return render(self.request, self.template_name, response)
+
+    def divideBussiness(self, response):
+        ''' HTML上で表示しやすいようにデータを加工する。
+        '''
+        businesse = response.get('businesses')
+        businessList = []
+
+        for i in range(SEARCH_LIMIT):
             params = {
                 'restaurant': response,
                 'title': 'Vegetable',
-                'alias': businesses[0]["alias"],  # 店舗名
-                'address': businesses[0]["location"]["display_address"],
-                'phone': businesses[0]["phone"],
-                'url': businesses[0]["url"],
-                'image_url': businesses[0]["image_url"]
+                'alias': businesse[i]["alias"],  # 店舗名
+                'address': businesse[i]["location"]["display_address"],
+                'phone': businesse[i]["phone"],
+                'url': businesse[i]["url"],
+                'image_url': businesse[i]["image_url"]
             }
-            return params
-        return response
+
+        return businessList
 
     def searchRestaurant(self, request):
         # 使い方不明のため一旦コメントアウト
@@ -130,14 +139,14 @@ class SearchYelpRestaurant(TemplateView):
         print(u'{0} businesses found, querying business info ' \
             'for the top result "{1}" ...'.format(
                 len(businesses), business_id))
-        # どのように使うのかわからないのでコメントアウト
+        # どのように使うのかわからないのでコメントアウト(店舗詳細を取得するメソッド)
         # response = self.get_business(API_KEY, business_id)
 
         print(u'Result for business "{0}" found:'.format(business_id))
         pprint.pprint(response, indent=2)
         return response
 
-        # どうやって使うのかわからないメソッド
+        # TODO:どうやって使うのかわからないメソッド
     def get_business(self, api_key, business_id):
         """Query the Business API by a business ID.
 
@@ -147,9 +156,11 @@ class SearchYelpRestaurant(TemplateView):
         Returns:
             dict: The JSON response from the request."""
 
-    #    business_path = BUSINESS_PATH + business_id
+        business_path = BUSINESS_PATH + business_id
 
-    #    return request(API_HOST, business_path, api_key)
+        return requests.request('GET', business_path, API_KEY)
+
+        # return request(API_HOST, business_path, api_key)
 
     def search(self, api_key, term, location):
         """Query the Search API by a search term and location.

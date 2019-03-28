@@ -1,0 +1,14 @@
+#storeImg{
+  width:  300px;
+  height: 200px;
+}
+
+div#header{
+  color:green;
+}
+#table{
+  boder: medium solid;
+  border-color: e6e6e6;
+  background-color: red;
+  color:red;
+}

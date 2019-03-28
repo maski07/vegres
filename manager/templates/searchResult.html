@@ -1,24 +1,37 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <title>{{title}}</title>
-</head>
-<body>
-  <div id="header">
-    <h1>
-      <a>Vegan Restaurant</a>
-    </h1>
-  </div>
-  <form action = "{% url 'searchResult'%}" method="post">
-    {% csrf_token %}
-    <input name="location" placeholder="location">
-    <input type="submit" value="search">
-  </form>
-    <img src = "{{image_url}}"></img>
-    <p>{{alias}}</p>
-    <p>{{address}}</p>
-    <p>{{phone}}</p>
-    <a href = "{{url}}">URL<a>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <title>{{title}}</title>
+    <link rel="stylesheet" type="text/css" href="../static/vegetable/searchResult.css" />
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        <a>Vegan Restaurant</a>
+      </h1>
+    </div>
+    <form action = "{% url 'searchResult'%}" method="post">
+      {% csrf_token %}
+      <input name="location" placeholder="location">
+      <input type="submit" value="search">
+    </form>
+    <table>
+      {% for list in businesses %}
+      <div id="table">
+        <tr>
+          <td>
+            <img id="storeImg" src = "{{list.image_url}}"></img>
+          </td>
+          <td>
+            <p>{{ list.alias }}</p>
+            <p>{{ list.location.display_address }}</p>
+            <p>{{ list.display_phone }}</p>
+            <a href = "{{list.url}}">yelp-webページ<a>
+          </td>
+        </tr>
+      </div>
+      {% endfor %}
+    </table>
+  </body>
 </html>
