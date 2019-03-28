@@ -6,23 +6,21 @@ div#header{
   color:white;
   text-align: center;
 }
-
-div#back{
+  /* TODO:CSS直したい */
+body{
+  margin-top: -20px;
   background-image:url("../img/vegetalianFood.jpg");	/*ヘッダ部分の背景画像*/
-  margin: auto;
-  width: 1120px;
-  min-width: 1120px;
-  height: 540px;
-  z-index: 10;
-  background-repeat: repeat-x;
-  background-position: left -150px bottom
-  position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    min-width: 1120px;
-    overflow: hidden;
+  /* 画像を常に天地左右の中央に配置 */
+  background-position: center center;
+
+  /* 画像をタイル状に繰り返し表示しない */
+  background-repeat: no-repeat;
+
+  /* コンテンツの高さが画像の高さより大きい時、動かないように固定 */
+  background-attachment: fixed;
+
+  /* 表示するコンテナの大きさに基づいて、背景画像を調整 */
+  background-size: cover;
 }
 div#home{
   color:red;
