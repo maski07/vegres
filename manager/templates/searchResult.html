@@ -2,8 +2,13 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{{title}}</title>
+    <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="../static/vegetable/searchResult.css" />
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
   </head>
   <body>
     <div id="header">
@@ -11,27 +16,35 @@
         <a>Vegan Restaurant</a>
       </h1>
     </div>
+    <!-- Search Form -->
     <form action = "{% url 'searchResult'%}" method="post">
       {% csrf_token %}
       <input name="location" placeholder="location">
-      <input type="submit" value="search">
+      <span class="oi oi-magnifying-glass"></span>
+      <input type="submit" class="oi oi-magnifying-glass">
     </form>
-    <table>
-      {% for list in businesses %}
-      <div id="table">
-        <tr>
-          <td>
-            <img id="storeImg" src = "{{list.image_url}}"></img>
-          </td>
-          <td>
-            <p>{{ list.alias }}</p>
-            <p>{{ list.location.display_address }}</p>
-            <p>{{ list.display_phone }}</p>
-            <a href = "{{list.url}}">yelp-webページ<a>
-          </td>
-        </tr>
+    <!-- Search Result -->
+    {% for list in businesses %}
+    <div class="container">
+      <div class="row">
+        <p class="storeName">ts-たんたん-東京駅京葉ストリート店-千代田区-2</p>
       </div>
-      {% endfor %}
-    </table>
+      <div class="row">
+        <div class="col-lg-4 col-ms-4">
+          <img class="storeImg"  src = "{{list.image_url}}"></img>
+        </div>
+        <div class="col-lg-8 col-ms-8 storeContents">
+          <p class="address">{{ list.location.display_address }}</p>
+          <p class="phoneNumber">{{ list.display_phone }}</p>
+          <a href = "http://google.com">yelp-webページ<a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
   </body>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </html>

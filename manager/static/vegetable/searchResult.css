@@ -1,14 +1,17 @@
-#storeImg{
+.storeImg{
   width:  300px;
   height: 200px;
 }
 
 div#header{
   color:green;
+  text-align: center;
 }
-#table{
-  boder: medium solid;
-  border-color: e6e6e6;
-  background-color: red;
-  color:red;
+
+.container{
+  border-top: solid #e6e6e6;
+}
+.storeImg, .storeContents{
+  float:left;
+  border-color: yellow;
 }
