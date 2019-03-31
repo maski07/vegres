@@ -9,7 +9,7 @@ div#header{
   /* TODO:CSS直したい */
 body{
   margin-top: -20px;
-  background-image:url({% static "css/img/vegetalianFood.jpg" %});	/*ヘッダ部分の背景画像*/
+  background-image:url("../img/vegetalianFood.jpg");	/*ヘッダ部分の背景画像*/
   /* 画像を常に天地左右の中央に配置 */
   background-position: center center;
 
