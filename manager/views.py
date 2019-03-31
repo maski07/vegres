@@ -40,7 +40,7 @@ BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
 # Defaults for our simple example.
 DEFAULT_TERM = 'Vegetarian Food'
 DEFAULT_LOCATION = 'TOKYO'
-SEARCH_LIMIT = 5
+SEARCH_LIMIT = 10
 
 # デバッグ用コード
 # import pdb; pdb.set_trace()
@@ -66,9 +66,10 @@ class SearchYelpRestaurant(TemplateView):
         # yelp-APIでRefactaring
         '''yelp_api = YelpAPI(API_KEY)  # yelp_API実装中
         search_results = yelp_api.search_query(request.POST.get['location'])'''
+        # 現状、必要としなくなったためコメントアウト
         # 取得した店舗情報を1店舗ずつ変数に格納する。responseを空で渡したらエラーになる。
-        if response is not None:
-            businessList = self.divideBussiness(response)
+        # if response is not None:
+        #     businessList = self.divideBussiness(response)
 
         return render(self.request, self.template_name, response)
 
