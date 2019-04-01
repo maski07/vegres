@@ -23,9 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'hmludgw!ju+2w=qh1=1j^lur%a_8dqu&@+do$+$ekn*(+tb_=y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['vegres.herokuapp.com']
+ALLOWED_HOSTS = [
+    'vegres.herokuapp.com',
+    '127.0.0.1'
+]
 
 
 # Application definition
