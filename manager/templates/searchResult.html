@@ -24,6 +24,12 @@
       </div>
     </form>
     <!-- Search Result -->
+    {% if not businesses %}
+    <!-- if search result = 0 -->
+    <p class="notfound">
+      ご指定の条件でお店が見つかりませんでした。
+    </p>
+    {% endif %}
     {% ifequal location 'true' %}
     テスト
     <div class="search-conditions">
