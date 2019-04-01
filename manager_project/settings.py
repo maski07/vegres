@@ -25,7 +25,7 @@ SECRET_KEY = 'hmludgw!ju+2w=qh1=1j^lur%a_8dqu&@+do$+$ekn*(+tb_=y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['vegres.herokuapp.com']
 
 
 # Application definition
