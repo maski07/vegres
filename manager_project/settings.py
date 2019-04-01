@@ -110,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'myproject.storage.S3Storage'
 
 try:
     from .local_settings import *
