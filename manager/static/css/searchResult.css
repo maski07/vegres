@@ -3,7 +3,7 @@ div#header{
   text-align: center;
 }
 
-/* search contents */
+/* search conditions */
 .search-location{
   background: #e6e6e6;
 }
@@ -16,6 +16,11 @@ div#header{
   margin-left: 50px;
 }
 
+.storeName{
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .storeImg{
   width:  300px;
   height: 200px;
@@ -25,6 +30,7 @@ div#header{
   border-top: solid #e6e6e6;
   margin-top: 50px;
 }
+
 .storeImg, .storeContents{
   float:left;
   border-color: yellow;

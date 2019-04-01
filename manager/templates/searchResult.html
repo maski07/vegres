@@ -42,18 +42,17 @@
     {% for list in businesses %}
     <div class="container">
       <div class="row">
-        <p class="storeName">{{list.alias}}</p>
+        <a class="storeName m-1" href = "{{list.url}}">{{list.alias}}</a>
       </div>
       <div class="row">
         <div class="col-lg-4 col-ms-4">
           <img class="storeImg"  src = "{{list.image_url}}"></img>
         </div>
-        <div class="col-lg-8 col-ms-8 storeContents">
+        <div class="storeContents col-lg-8 col-ms-8">
           <p class="address">
               {{ list.location.display_address }}
           </p>
-          <p class="phoneNumber">{{ list.display_phone }}</p>
-          <a href = "{{list.url}}">yelp-webページ<a>
+          <a class="phoneNumber" href="{{ list.display_phone }}">{{ list.display_phone }}</a>
         </div>
       </div>
     </div>
